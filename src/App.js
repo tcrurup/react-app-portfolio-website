@@ -1,8 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import Homepage from './containers/Homepage';
+import Blog from './containers/Blog';
+import Resume from './containers/Resume';
+import Contact from './containers/Contact';
 import Navbar from "./containers/Navbar";
 import { useState, useEffect } from "react"
+import { Routes, Route } from "react-router-dom"
 
 function App() {
 
@@ -14,12 +18,31 @@ function App() {
     if(typeof token == "string" && token.length > 0){
         setToken(token)
     }
-  })//Array left blank so useEffect only happens on mount
+  }, [])//Array left blank so useEffect only happens on mount
 
   return (
     <div className="App">
         <Navbar />
-        <Homepage accessToken={ token } />
+        <Routes>
+          <Route 
+            path = "/"
+            element = {<Homepage accessToken={ token }/>}
+          />
+          <Route 
+            path = "/blog"
+            element = {<Blog />}
+          />
+          <Route 
+            path = "/resume"
+            element = {<Resume />}
+          />
+          <Route 
+            path = "/contact"
+            element = {<Contact/>}
+          />
+          
+        </Routes>
+        
     </div>
   );
 }

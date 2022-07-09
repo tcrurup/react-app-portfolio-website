@@ -1,0 +1,11 @@
+nav#navbar{
+    display: flex;
+    height: 50px;
+    justify-content: space-around;
+    padding: 0px 10vw;
+    width: 80vw;                                                                                                                                                                   
+}
+
+nav#navbar a{
+
+}

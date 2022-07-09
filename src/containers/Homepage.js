@@ -1,7 +1,7 @@
 function Homepage(props){
 
-    return <div>
-        {props.accessToken}
+    return <div id="homepage-container">
+        This is the homepage
     </div>
 }
 
