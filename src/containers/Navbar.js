@@ -8,6 +8,7 @@ function Navbar(){
         <Link to="/blog">Blog</Link>
         <Link to="/resume">Resume</Link>
         <Link to="/contact">Contact</Link>
+        <button onClick={oAuthSignIn}>Login</button>
     </nav>
 }
 export default Navbar

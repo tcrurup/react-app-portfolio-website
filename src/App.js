@@ -30,7 +30,7 @@ function App() {
           />
           <Route 
             path = "/blog"
-            element = {<Blog />}
+            element = {<Blog accessToken={ token }/>}
           />
           <Route 
             path = "/resume"
