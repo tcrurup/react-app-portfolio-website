@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import BlogPost from '../components/BlogPost';
 
 function Blog(props){
 
@@ -57,7 +58,7 @@ function Blog(props){
         This is a blog
         <button onClick={getBlogWithAPI}>Get Blogs</button>
         <button onClick={getPostsFromBlog}>Get Posts</button>
-        {posts.length}
+        {posts.map(post => <BlogPost content={post.content}/>)}
     </div>
 }
 
