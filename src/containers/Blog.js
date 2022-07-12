@@ -1,13 +1,18 @@
+import { useState } from 'react'
+
 function Blog(props){
 
+    const [posts, setPosts] = useState([])
+    
     const url = (() => {
         
         const blogID = '1993198064947039865'
-        const base = 'https://www.googleapis.com/blogger/v3/blogs/'
+        const base = 'https://www.googleapis.com/blogger/v3/blogs'
         const apiKey = 'AIzaSyAMTNEpSJ9smokrxlSJceEFvYR23YheyfI'
 
         return {
-            blog: `${base}${blogID}?key=${apiKey}`
+            blog: `${base}/${blogID}?key=${apiKey}`,
+            posts: `${base}/${blogID}/posts?key=${apiKey}`
         }
     })();
     
@@ -36,7 +41,9 @@ function Blog(props){
     }
 
     function getPostsFromBlog(){
-
+        fetch(url.posts)
+        .then( response => response.json() )
+        .then( data => setPosts(data.items) )
     }
 
     function getBlogWithAuth(){
@@ -48,7 +55,9 @@ function Blog(props){
     
     return <div className="blog-container">
         This is a blog
-        <button onClick={getBlogWithAPI}></button>
+        <button onClick={getBlogWithAPI}>Get Blogs</button>
+        <button onClick={getPostsFromBlog}>Get Posts</button>
+        {posts.length}
     </div>
 }
 
