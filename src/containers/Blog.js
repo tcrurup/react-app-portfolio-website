@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import BlogPost from '../components/BlogPost';
+import CreateBlogPost from '../components/CreateBlogPost';
 
 function Blog(props){
 
@@ -29,9 +30,6 @@ function Blog(props){
     const optionsAPI = {
         method: "GET",
         mode: 'cors',
-        headers: {
-            
-        }
     }
 
     function getBlogWithAPI(){
@@ -59,6 +57,7 @@ function Blog(props){
         <button onClick={getBlogWithAPI}>Get Blogs</button>
         <button onClick={getPostsFromBlog}>Get Posts</button>
         {posts.map(post => <BlogPost content={post.content}/>)}
+        <CreateBlogPost />
     </div>
 }
 
