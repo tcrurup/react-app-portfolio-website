@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import BlogPost from '../components/BlogPost';
 import CreateBlogPost from '../components/CreateBlogPost';
+import blogURLs from '../utilities/blogURLs';
 
 function Blog(props){
 
@@ -8,9 +9,9 @@ function Blog(props){
     
     const url = (() => {
         
-        const blogID = '1993198064947039865'
+        const blogID = '882558988348815947'
         const base = 'https://www.googleapis.com/blogger/v3/blogs'
-        const apiKey = 'AIzaSyAMTNEpSJ9smokrxlSJceEFvYR23YheyfI'
+        const apiKey = 'AIzaSyAGPPr7DXfT9FoUkG3HTXinDG2r_qcan3M'
 
         return {
             blog: `${base}/${blogID}?key=${apiKey}`,
@@ -42,7 +43,9 @@ function Blog(props){
     function getPostsFromBlog(){
         fetch(url.posts)
         .then( response => response.json() )
-        .then( data => setPosts(data.items) )
+        .then( data => 
+            data.items ? setPosts(data.items) : console.log("There were no posts found")
+        )
     }
 
     function getBlogWithAuth(){
@@ -51,13 +54,22 @@ function Blog(props){
         .then( response => response.json() )
         .then( data => console.log(data) )
     }
+
+    function ifLoggedIn(){
+        const token = props.accessToken
+        if(token && token != ""){
+            return <CreateBlogPost accessToken={props.accessToken} />
+        }
+    }
     
     return <div className="blog-container">
         This is a blog
         <button onClick={getBlogWithAPI}>Get Blogs</button>
         <button onClick={getPostsFromBlog}>Get Posts</button>
-        {posts.map(post => <BlogPost content={post.content}/>)}
-        <CreateBlogPost />
+        
+        { posts.length ? posts.map(post => <BlogPost content={post.content}/>) : <h3>There are no posts to display</h3> }
+
+        {ifLoggedIn()}
     </div>
 }
 

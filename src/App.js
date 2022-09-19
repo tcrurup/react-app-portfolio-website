@@ -26,7 +26,7 @@ function App() {
         <Routes>
           <Route 
             path = "/"
-            element = {<Homepage accessToken={ token }/>}
+            element = {<Homepage/>}
           />
           <Route 
             path = "/blog"

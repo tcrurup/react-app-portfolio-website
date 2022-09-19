@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import './CreateBlogPost.css'
 
-function CreateBlogPost(){
+function CreateBlogPost(props){
 
     const [content, setContent] = useState("")
 
     const handleChange = event => {
-        console.log(event.target.value)
+        setContent(event.target.value)
     }
 
     return <div>
