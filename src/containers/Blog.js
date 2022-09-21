@@ -8,19 +8,19 @@ function Blog(props){
 
     const [posts, setPosts] = useState([])
     
-    useEffect(getPostsFromBlog, [])//Array left blank so useEffect only happens on mount
+   // useEffect(getPostsFromBlog, [])//Array left blank so useEffect only happens on mount
     
-    const url = (() => {
+    // const url = (() => {
         
-        const blogID = '882558988348815947'
-        const base = 'https://www.googleapis.com/blogger/v3/blogs'
-        const apiKey = 'AIzaSyAGPPr7DXfT9FoUkG3HTXinDG2r_qcan3M'
+    //     const blogID = '882558988348815947'
+    //     const base = 'https://www.googleapis.com/blogger/v3/blogs'
+    //     const apiKey = 'AIzaSyAGPPr7DXfT9FoUkG3HTXinDG2r_qcan3M'
 
-        return {
-            blog: `${base}/${blogID}?key=${apiKey}`,
-            posts: `${base}/${blogID}/posts?key=${apiKey}`
-        }
-    })();
+    //     return {
+    //         blog: `${base}/${blogID}?key=${apiKey}`,
+    //         posts: `${base}/${blogID}/posts?key=${apiKey}`
+    //     }
+    // })();
     
     const optionsAuth = {
         method: "GET",
@@ -36,20 +36,20 @@ function Blog(props){
         mode: 'cors',
     }
 
-    function getBlogWithAPI(){
-        console.log(url)
-        fetch(url.blog)
-        .then( response => response.json() )
-        .then( data => console.log(data) )
-    }
+    // function getBlogWithAPI(){
+    //     console.log(url)
+    //     fetch(url.blog)
+    //     .then( response => response.json() )
+    //     .then( data => console.log(data) )
+    // }
 
-    function getPostsFromBlog(){
-        fetch(url.posts)
-        .then( response => response.json() )
-        .then( data => 
-            data.items ? setPosts(data.items) : console.log("There were no posts found")
-        )
-    }
+    // function getPostsFromBlog(){
+    //     fetch(url.posts)
+    //     .then( response => response.json() )
+    //     .then( data => 
+    //         data.items ? setPosts(data.items) : console.log("There were no posts found")
+    //     )
+    // }
 
     function getBlogWithAuth(){
 
@@ -67,8 +67,6 @@ function Blog(props){
     
     return <div className="blog-container">
         This is a blog
-        <button onClick={getBlogWithAPI}>Get Blogs</button>
-        <button onClick={getPostsFromBlog}>Get Posts</button>
         <Outlet />
         {console.log(posts)}
         { posts.length ? posts.map(post => <BlogPost content={post.content} id={post.id} accessToken={props.accessToken}/> ) : <h3>There are no posts to display</h3> }
