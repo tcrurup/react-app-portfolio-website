@@ -6,7 +6,9 @@ import Resume from './containers/Resume';
 import Contact from './containers/Contact';
 import Navbar from "./containers/Navbar";
 import { useState, useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Outlet } from "react-router-dom"
+import CreateBlogPost from './components/CreateBlogPost';
+import PostContainer from './containers/PostContainer';
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
     }
   }, [])//Array left blank so useEffect only happens on mount
 
+  //NEED TO CLEAN UP THIS ROUTING ITS REALLY BAD
+  //Instead have a base layout as the index and nest in all the rest.
   return (
     <div className="App">
         <Navbar />
@@ -28,21 +32,14 @@ function App() {
             path = "/"
             element = {<Homepage/>}
           />
-          <Route 
-            path = "/blog"
-            element = {<Blog accessToken={ token }/>}
-          />
-          <Route 
-            path = "/resume"
-            element = {<Resume />}
-          />
-          <Route 
-            path = "/contact"
-            element = {<Contact/>}
-          />
+          <Route path = "/blog" element = {<Blog accessToken={ token }/>} >
+            <Route path="posts" element = { <PostContainer />} />
+            <Route path="posts/new" element = {<CreateBlogPost/>} />
+          </Route>
+          <Route path = "/resume" element = {<Resume />} />
+          <Route path = "/contact" element = {<Contact/>} />
           
         </Routes>
-        
     </div>
   );
 }

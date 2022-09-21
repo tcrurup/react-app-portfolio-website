@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 import BlogPost from '../components/BlogPost';
 import CreateBlogPost from '../components/CreateBlogPost';
 import blogURLs from '../utilities/blogURLs';
@@ -6,6 +7,8 @@ import blogURLs from '../utilities/blogURLs';
 function Blog(props){
 
     const [posts, setPosts] = useState([])
+    
+    useEffect(getPostsFromBlog, [])//Array left blank so useEffect only happens on mount
     
     const url = (() => {
         
@@ -66,8 +69,9 @@ function Blog(props){
         This is a blog
         <button onClick={getBlogWithAPI}>Get Blogs</button>
         <button onClick={getPostsFromBlog}>Get Posts</button>
-        
-        { posts.length ? posts.map(post => <BlogPost content={post.content}/>) : <h3>There are no posts to display</h3> }
+        <Outlet />
+        {console.log(posts)}
+        { posts.length ? posts.map(post => <BlogPost content={post.content} id={post.id} accessToken={props.accessToken}/> ) : <h3>There are no posts to display</h3> }
 
         {ifLoggedIn()}
     </div>
